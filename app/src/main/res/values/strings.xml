@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Minigame Alarm Clock</string>
+    <string name="statistics">Statistics</string>
+    <string name="alarms">Alarms</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alarm_name">Alarm name</string>
+    <string name="mini_game">Mini Game</string>
+    <string name="alarm_sound">Alarm Sound</string>
+    <string name="vibration">Vibration</string>
+    <string name="extra_loud">Extra Loud</string>
+    <string name="max_volume">Max Volume</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
 </resources>
