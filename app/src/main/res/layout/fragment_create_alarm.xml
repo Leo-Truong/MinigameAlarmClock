@@ -8,7 +8,7 @@
     tools:context=".CreateAlarm">
 
     <EditText
-        android:id="@+id/alarmName"
+        android:id="@+id/create_alarm_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/alarm_name"
@@ -266,6 +266,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="Create Alarm" />
+        android:text="@string/create_alarm" />
 
 </LinearLayout>
