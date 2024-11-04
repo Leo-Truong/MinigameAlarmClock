@@ -43,7 +43,6 @@ public class AlarmFragment extends Fragment implements OnToggleAlarmListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         alarmRecyclerViewAdapter = new MyAlarmRecyclerViewAdapter(this);
-        // alarmRecyclerViewAdapter = new MyAlarmRecyclerViewAdapter(this);
         alarmsListViewModel = new ViewModelProvider(this).get(AlarmsListViewModel.class);
         alarmsListViewModel.getAlarmsLiveData().observe(this, new Observer<List<Alarm>>() {
             @Override

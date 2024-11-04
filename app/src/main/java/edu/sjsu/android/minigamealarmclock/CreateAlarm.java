@@ -25,7 +25,7 @@ public class CreateAlarm extends Fragment {
     FragmentCreateAlarmBinding createAlarmBinding;
     private CreateAlarmViewModel createAlarmViewModel;
     boolean isVibrate = false;
-    boolean isRecurring = true;
+    boolean isRecurring;
     String tone;
     Alarm alarm;
     Ringtone ringtone;
@@ -105,6 +105,13 @@ public class CreateAlarm extends Fragment {
     private void scheduleAlarm() {
         String alarmName = getString(R.string.alarm_name);
         int alarmId = new Random().nextInt(Integer.MAX_VALUE);
+        isRecurring = createAlarmBinding.checkMon.isChecked() ||
+                createAlarmBinding.checkTue.isChecked() ||
+                createAlarmBinding.checkWed.isChecked() ||
+                createAlarmBinding.checkThu.isChecked() ||
+                createAlarmBinding.checkFri.isChecked() ||
+                createAlarmBinding.checkSat.isChecked() ||
+                createAlarmBinding.checkSun.isChecked();
         if(!createAlarmBinding.createAlarmName.getText().toString().isEmpty()){
             alarmName = createAlarmBinding.createAlarmName.getText().toString();
         }
@@ -114,7 +121,7 @@ public class CreateAlarm extends Fragment {
                 TimePickerUtil.getTimePickerMinute(createAlarmBinding.timePicker),
                 alarmName,
                 true,
-                true,
+                isRecurring,
                 createAlarmBinding.checkMon.isChecked(),
                 createAlarmBinding.checkTue.isChecked(),
                 createAlarmBinding.checkWed.isChecked(),
@@ -137,6 +144,13 @@ public class CreateAlarm extends Fragment {
         if(!createAlarmBinding.createAlarmName.getText().toString().isEmpty()){
             alarmName=createAlarmBinding.createAlarmName.getText().toString();
         }
+        isRecurring = createAlarmBinding.checkMon.isChecked() ||
+                createAlarmBinding.checkTue.isChecked() ||
+                createAlarmBinding.checkWed.isChecked() ||
+                createAlarmBinding.checkThu.isChecked() ||
+                createAlarmBinding.checkFri.isChecked() ||
+                createAlarmBinding.checkSat.isChecked() ||
+                createAlarmBinding.checkSun.isChecked();
         Alarm updatedAlarm = new Alarm(
                 alarm.getAlarmId(),
                 TimePickerUtil.getTimePickerHour(createAlarmBinding.timePicker),
