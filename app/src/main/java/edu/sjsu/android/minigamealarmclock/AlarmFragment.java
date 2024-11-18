@@ -1,13 +1,11 @@
 package edu.sjsu.android.minigamealarmclock;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import edu.sjsu.android.minigamealarmclock.databinding.FragmentAlarmListBinding;
-import edu.sjsu.android.minigamealarmclock.placeholder.PlaceholderContent;
 
 /**
  * A fragment representing a list of Items.
