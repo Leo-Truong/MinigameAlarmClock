@@ -181,9 +181,9 @@ public class CreateAlarm extends Fragment {
             if (uri != null) {
                 tone=uri.toString();
                 if(title!=null && !title.isEmpty())
-                    createAlarmBinding.createAlarmName.setText(title);
+                    createAlarmBinding.alarmSoundText.setText(title);
             } else {
-                createAlarmBinding.createAlarmName.setText("");
+                createAlarmBinding.alarmSoundText.setText("");
             }
         }
     }
