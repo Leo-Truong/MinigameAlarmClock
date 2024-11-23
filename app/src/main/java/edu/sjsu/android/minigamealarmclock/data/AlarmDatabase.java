@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.data;
 
 import android.content.Context;
 
@@ -8,6 +8,8 @@ import androidx.room.RoomDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import edu.sjsu.android.minigamealarmclock.Alarm;
 
 @Database(entities = {Alarm.class}, version = 1, exportSchema = false)
 public abstract class AlarmDatabase extends RoomDatabase {

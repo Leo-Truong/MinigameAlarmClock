@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import edu.sjsu.android.minigamealarmclock.data.AlarmRepository;
+
 public class AlarmsListViewModel extends AndroidViewModel {
     private AlarmRepository alarmRepository;
     private LiveData<List<Alarm>> alarmsLiveData;

@@ -28,7 +28,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             if(alarm!=null) {
                 if (!alarm.isRecurring()) {
-                    startAlarmService(context, alarm);
+                        startAlarmService(context, alarm);
                 } else {
                     if (isAlarmToday(alarm)) {
                         startAlarmService(context, alarm);

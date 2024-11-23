@@ -43,7 +43,7 @@ public class RingActivity extends AppCompatActivity {
         alarmsListViewModel = new ViewModelProvider(this).get(AlarmsListViewModel.class);
         Bundle bundle=getIntent().getBundleExtra(getString(R.string.bundle_alarm_obj));
         if (bundle!=null)
-            alarm =(Alarm)bundle.getSerializable(getString(R.string.arg_alarm_obj));
+            alarm =(Alarm)bundle.getParcelable(getString(R.string.arg_alarm_obj));
 
         ringActivityViewBinding.activityRingDismiss.setOnClickListener(new View.OnClickListener() {
             @Override

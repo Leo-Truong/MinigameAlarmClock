@@ -40,7 +40,14 @@ public class AlarmService extends Service {
             alarm = (Alarm) bundle.getParcelable(getString(R.string.arg_alarm_obj));
         Intent notificationIntent = new Intent(this, RingActivity.class);
         notificationIntent.putExtra(getString(R.string.bundle_alarm_obj),bundle);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
         String alarmName = getString(R.string.alarm_name);
         if(alarm!=null) {
             alarmName = alarm.getAlarmName();
@@ -63,7 +70,7 @@ public class AlarmService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Ring Ring .. Ring Ring")
                 .setContentText(alarmName)
-                // .setSmallIcon(R.drawable.ic_alarm_white_24dp)
+                .setSmallIcon(R.drawable.ic_alarm_white_24)
                 .setSound(null)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -84,6 +91,14 @@ public class AlarmService extends Service {
         startForeground(1, notification);
 
         return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mediaPlayer.stop();
+        vibrator.cancel();
     }
 
     @Nullable
