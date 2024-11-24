@@ -18,4 +18,13 @@
     <string name="arg_alarm_obj">AlarmObject</string>
     <string name="create_alarm">Create Alarm</string>
     <string name="bundle_alarm_obj">BundleAlarmObject</string>
+    <string name="_15">15</string>
+    <string name="y2">Y2</string>
+    <string name="g">G</string>
+    <string name="r">R</string>
+    <string name="o1">O1</string>
+    <string name="y1">Y1</string>
+    <string name="b">B</string>
+    <string name="p">P</string>
+    <string name="o2">O2</string>
 </resources>
