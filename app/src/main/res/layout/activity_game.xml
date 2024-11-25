@@ -253,4 +253,92 @@
         app:layout_constraintStart_toEndOf="@+id/BButton"
         app:layout_constraintTop_toBottomOf="@+id/RButton" />
 
+    <ImageView
+        android:id="@+id/wirecut1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="116dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bomb"
+        app:srcCompat="@drawable/wirecut1" />
+
+    <ImageView
+        android:id="@+id/wirecut2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="116dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wire1"
+        app:srcCompat="@drawable/wirecut2" />
+
+    <ImageView
+        android:id="@+id/wirecut3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="116dp"
+        app:layout_constraintEnd_toEndOf="@+id/bomb"
+        app:layout_constraintTop_toBottomOf="@+id/wire1"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/wirecut3" />
+
+    <ImageView
+        android:id="@+id/wirecut4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="120dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/bomb"
+        app:layout_constraintTop_toBottomOf="@+id/wire1"
+        app:srcCompat="@drawable/wirecut4" />
+
+    <ImageView
+        android:id="@+id/wirecut5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="124dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/bomb"
+        app:layout_constraintTop_toBottomOf="@+id/wire4"
+        app:srcCompat="@drawable/wirecut5" />
+
+    <ImageView
+        android:id="@+id/wirecut6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="120dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wire4"
+        app:srcCompat="@drawable/wirecut6" />
+
+    <ImageView
+        android:id="@+id/wirecut7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="120dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/bomb"
+        app:layout_constraintTop_toBottomOf="@+id/wire4"
+        app:srcCompat="@drawable/wirecut7" />
+
+    <ImageView
+        android:id="@+id/wirecut8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="122dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wire4"
+        app:srcCompat="@drawable/wirecut8" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
