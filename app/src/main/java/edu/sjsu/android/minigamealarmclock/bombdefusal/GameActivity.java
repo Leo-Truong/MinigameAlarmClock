@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,8 +38,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        GameView gameView = new GameView(this);
-//        setContentView(gameView);
 
         binding = ActivityGameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -63,6 +62,8 @@ public class GameActivity extends AppCompatActivity {
                     wiresToCut.remove(wireColor);
                     b.setBackgroundColor(Color.GREEN);
                     b.setEnabled(false);
+                    if (wiresToCut.isEmpty()) // Disable buttons on the event user completes game
+                        disableAllButtons();
                     Log.d("GameActivty", "Removed: " + wireColor);
                     Log.d("GameActivity", "wiresToCut: " + wiresToCut.toString());
                 }else{
@@ -70,29 +71,34 @@ public class GameActivity extends AppCompatActivity {
                     disableAllButtons();
                     wrongWire = true;
                 }
-                if (Objects.equals(wireColor, "G")){
-                    binding.wire1.setVisibility(View.INVISIBLE);
-                    binding.wirecut1.setVisibility(View.VISIBLE);
-                }
-                if (Objects.equals(wireColor, "R")){
-                    binding.wire2.setVisibility(View.INVISIBLE);
-                    binding.wirecut2.setVisibility(View.VISIBLE);
-                }
-                if (Objects.equals(wireColor, "O1")){
-                    binding.wire3.setVisibility(View.INVISIBLE);
-                    binding.wirecut3.setVisibility(View.VISIBLE);
-                }
-                if (Objects.equals(wireColor, "Y1")){
-                    binding.wire4.setVisibility(View.INVISIBLE);
-                    binding.wirecut4.setVisibility(View.VISIBLE);
-                }
+
+                // Used to update the wire visual
+                checkWire(wireColor, "G", binding.wire1, binding.wirecut1);
+                checkWire(wireColor, "R", binding.wire2, binding.wirecut2);
+                checkWire(wireColor, "O1", binding.wire3, binding.wirecut3);
+                checkWire(wireColor, "Y1", binding.wire4, binding.wirecut4);
+                checkWire(wireColor, "B", binding.wire5, binding.wirecut5);
+                checkWire(wireColor, "P", binding.wire6, binding.wirecut6);
+                checkWire(wireColor, "O2", binding.wire7, binding.wirecut7);
+                checkWire(wireColor, "Y2", binding.wire8, binding.wirecut8);
+
             }
         });
     }
 
-//    private void checkWire(String wireColor, ImageView wire, ImageView wirecut){
-//        if (Objects.equals)
-//    }
+    /**
+     * Method to update the wire visuals depending on what button is pressed
+     * @param wireColor the color of the wire that corresponds with the button pressed
+     * @param matchWireColor the color of the wire to be updated
+     * @param wire png of original uncut wire
+     * @param wirecut png of cut wire
+     */
+    private void checkWire(String wireColor, String matchWireColor, ImageView wire, ImageView wirecut){
+        if(Objects.equals(wireColor, matchWireColor)){
+            wire.setVisibility(View.INVISIBLE);
+            wirecut.setVisibility(View.VISIBLE);
+        }
+    }
 
     /**
      * Sets up all the buttons for the game
