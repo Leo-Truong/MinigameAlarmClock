@@ -60,7 +60,8 @@ public class GameActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (wiresToCut.contains(wireColor)) {
+                // Checks if user chose correct wire
+                if (Objects.equals(wiresToCut.get(0), wireColor)) {
                     wiresToCut.remove(wireColor);
                     b.setBackgroundColor(Color.GREEN);
                     b.setEnabled(false);
