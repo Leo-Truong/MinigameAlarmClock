@@ -1,26 +1,18 @@
 package edu.sjsu.android.minigamealarmclock;
 
 import android.content.Intent;
-import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.WindowManager;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Random;
 
 import edu.sjsu.android.minigamealarmclock.bombdefusal.GameActivity;
 import edu.sjsu.android.minigamealarmclock.databinding.ActivityRingBinding;
@@ -66,23 +58,11 @@ public class RingActivity extends AppCompatActivity {
         }
 
         alarmsListViewModel = new ViewModelProvider(this).get(AlarmsListViewModel.class);
-        Bundle bundle=getIntent().getBundleExtra(getString(R.string.bundle_alarm_obj));
-        if (bundle!=null)
-            alarm =(Alarm)bundle.getParcelable(getString(R.string.arg_alarm_obj));
+        Bundle bundle = getIntent().getBundleExtra(getString(R.string.bundle_alarm_obj));
+        if (bundle != null)
+            alarm = bundle.getParcelable(getString(R.string.arg_alarm_obj));
 
-        ringActivityViewBinding.startMinigame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startGame();
-            }
-        });
-
-//        ringActivityViewBinding.activityRingSnooze.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                snoozeAlarm();
-//            }
-//        });
+        ringActivityViewBinding.startMinigame.setOnClickListener(v -> startGame());
     }
 
     @Override
@@ -99,17 +79,6 @@ public class RingActivity extends AppCompatActivity {
         }
     }
 
-    private void dismissAlarm(){
-        if(alarm!=null) {
-            alarm.setStarted(false);
-            alarm.cancelAlarm(getBaseContext());
-            alarmsListViewModel.update(alarm);
-        }
-        Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
-        getApplicationContext().stopService(intentService);
-        finish();
-    }
-
     private void startGame(){
         if(alarm!=null) {
             alarm.setStarted(false);
@@ -120,43 +89,6 @@ public class RingActivity extends AppCompatActivity {
                 startActivity(intentGame);
             }
         }
-
         finish();
     }
-
-//    private void snoozeAlarm(){
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis());
-//        calendar.add(Calendar.MINUTE, 5);
-//
-//        if(alarm!=null){
-//            alarm.setHour(calendar.get(Calendar.HOUR_OF_DAY));
-//            alarm.setMinute(calendar.get(Calendar.MINUTE));
-//            alarm.setAlarmName("Snooze " + alarm.getAlarmName());
-//        }
-//        else {
-//            alarm = new Alarm(
-//                    new Random().nextInt(Integer.MAX_VALUE),
-//                    calendar.get(Calendar.HOUR_OF_DAY),
-//                    calendar.get(Calendar.MINUTE),
-//                    "Snooze",
-//                    true,
-//                    false,
-//                    false,
-//                    false,
-//                    false,
-//                    false,
-//                    false,
-//                    false,
-//                    false,
-//                    RingtoneManager.getActualDefaultRingtoneUri(getBaseContext(), RingtoneManager.TYPE_ALARM).toString(),
-//                    false
-//            );
-//        }
-//        alarm.schedule(getApplicationContext());
-//
-//        Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
-//        getApplicationContext().stopService(intentService);
-//        finish();
-//    }
 }

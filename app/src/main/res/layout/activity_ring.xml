@@ -10,21 +10,12 @@
     <Button
         android:id="@+id/start_minigame"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:text="Start Minigame"
-        app:layout_constraintBottom_toTopOf="@+id/activity_ring_snooze"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/activity_ring_snooze"
-        android:layout_width="0dp"
         android:layout_height="300dp"
-        android:text="Snooze"
+        android:layout_marginBottom="10dp"
+        android:text="@string/start_minigame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/ringactivity_date"

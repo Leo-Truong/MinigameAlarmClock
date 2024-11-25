@@ -172,6 +172,7 @@ public class GameActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 timerTextView.setText("" + millisUntilFinished / 1000);
 
+                // User successfully chose the correct wires in the the correct order
                 if(wiresToCut.isEmpty()){
                     success += 1;
                     if (success == 1 && binding.greendot1.getVisibility() == View.INVISIBLE){
