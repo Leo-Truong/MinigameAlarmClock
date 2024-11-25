@@ -8,11 +8,11 @@
     tools:context=".RingActivity">
 
     <Button
-        android:id="@+id/activity_ring_dismiss"
+        android:id="@+id/start_minigame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Dismiss"
         android:layout_marginBottom="7dp"
+        android:text="Start Minigame"
         app:layout_constraintBottom_toTopOf="@+id/activity_ring_snooze"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -25,5 +25,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/ringactivity_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Monday, June, 25"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ringactivity_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2:15"
+        android:textSize="80sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ringactivity_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

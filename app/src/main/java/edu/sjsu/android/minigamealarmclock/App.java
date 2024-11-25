@@ -15,6 +15,9 @@ public class App extends Application {
         createNotificationChannel();
     }
 
+    /**
+     * Method to create the Notification Channel used in the alarm
+     */
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel serviceChannel = new NotificationChannel(

@@ -1,5 +1,6 @@
 package edu.sjsu.android.minigamealarmclock.bombdefusal;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
+import edu.sjsu.android.minigamealarmclock.AlarmService;
 import edu.sjsu.android.minigamealarmclock.R;
 import edu.sjsu.android.minigamealarmclock.databinding.ActivityGameBinding;
 
@@ -179,6 +181,9 @@ public class GameActivity extends AppCompatActivity {
                     }
                     if (success == 3 && binding.greendot3.getVisibility() == View.INVISIBLE){
                         binding.greendot3.setVisibility(View.VISIBLE);
+                        // stop alarm
+                        Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
+                        getApplicationContext().stopService(intentService);
                         finish();
                     }
                     Log.d("GameActivity", "success: " + success);

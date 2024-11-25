@@ -83,36 +83,37 @@
         app:layout_constraintTop_toBottomOf="@+id/dayOptions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/minigame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/minigame">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/minigameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mini_game"
-                android:textSize="21sp"
                 android:layout_margin="6dp"
+                android:text="@string/mini_game"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:layout_editor_absoluteX="0dp"
+                android:textSize="21sp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                tools:layout_editor_absoluteX="0dp" />
 
             <TextView
                 android:id="@+id/setMinigameName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mini_game"
-                android:textSize="13sp"
                 android:layout_margin="6dp"
+                android:text="@string/mini_game"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:layout_editor_absoluteX="0dp"
+                android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/minigameText"/>
+                app:layout_constraintTop_toBottomOf="@id/minigameText"
+                tools:layout_editor_absoluteX="0dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

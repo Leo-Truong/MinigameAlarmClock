@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 import edu.sjsu.android.minigamealarmclock.Alarm;
 
-@Database(entities = {Alarm.class}, version = 1, exportSchema = false)
+@Database(entities = {Alarm.class}, version = 2, exportSchema = false)
 public abstract class AlarmDatabase extends RoomDatabase {
     public abstract AlarmDao alarmDao();
 
@@ -24,10 +24,12 @@ public abstract class AlarmDatabase extends RoomDatabase {
             synchronized (AlarmDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            AlarmDatabase.class,
-                            "alarm_database"
-                    ).build();
+                                    context.getApplicationContext(),
+                                    AlarmDatabase.class,
+                                    "alarm_database"
+                            )
+                            .fallbackToDestructiveMigration() // Use destructive migration
+                            .build();
                 }
             }
         }

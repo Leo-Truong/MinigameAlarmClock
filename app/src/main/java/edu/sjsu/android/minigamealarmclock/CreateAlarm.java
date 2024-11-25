@@ -11,11 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
+import java.util.Objects;
 import java.util.Random;
 
 import edu.sjsu.android.minigamealarmclock.databinding.FragmentCreateAlarmBinding;
@@ -29,6 +34,7 @@ public class CreateAlarm extends Fragment {
     String tone;
     Alarm alarm;
     Ringtone ringtone;
+    String minigame;
 
     public CreateAlarm() {
         // Required empty public constructor
@@ -38,7 +44,7 @@ public class CreateAlarm extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            alarm= (Alarm) getArguments().getSerializable(getString(R.string.arg_alarm_obj));
+            alarm= (Alarm) getArguments().getParcelable(getString(R.string.arg_alarm_obj));
         }
         createAlarmViewModel = new ViewModelProvider(this).get(CreateAlarmViewModel.class);
     }
@@ -51,9 +57,20 @@ public class CreateAlarm extends Fragment {
         tone = RingtoneManager.getActualDefaultRingtoneUri(this.getContext(), RingtoneManager.TYPE_ALARM).toString();
         ringtone = RingtoneManager.getRingtone(getContext(), Uri.parse(tone));
         createAlarmBinding.alarmSoundText.setText(ringtone.getTitle(getContext()));
+        createAlarmBinding.minigameText.setText(R.string.bomb_defusal);
+        minigame = "Bomb Defusal"; // Default minigame
+
         if(alarm!=null){
             updateAlarmInfo(alarm);
         }
+
+        // onClick for Minigames
+        createAlarmBinding.cardMinigame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupMenu(view);
+            }
+        });
 
         createAlarmBinding.createAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +119,32 @@ public class CreateAlarm extends Fragment {
         return v;
     }
 
+    private void showPopupMenu(View view) {
+        // Create PopupMenu using the view where the menu will appear
+        PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+
+        // Inflate the menu from the XML file using the activity's MenuInflater
+        requireActivity().getMenuInflater().inflate(R.menu.context_menu, popupMenu.getMenu());
+
+        // Set listener for menu item selection
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.minigame1) {
+                    Toast.makeText(getActivity(), "Bomb Defusal selected", Toast.LENGTH_SHORT).show();
+                    createAlarmBinding.minigameText.setText(R.string.bomb_defusal);
+                    minigame = "Bomb Defusal";
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Show the PopupMenu
+        popupMenu.show();
+    }
+
     private void scheduleAlarm() {
         String alarmName = getString(R.string.alarm_name);
         int alarmId = new Random().nextInt(Integer.MAX_VALUE);
@@ -130,12 +173,14 @@ public class CreateAlarm extends Fragment {
                 createAlarmBinding.checkSat.isChecked(),
                 createAlarmBinding.checkSun.isChecked(),
                 tone,
-                isVibrate
+                isVibrate,
+                minigame
         );
 
         createAlarmViewModel.insert(alarm);
 
         alarm.schedule(getContext());
+        Log.d("CreateAlarm", "minigame: " + minigame);
     }
 
     private void updateAlarm(){
@@ -166,7 +211,8 @@ public class CreateAlarm extends Fragment {
                 createAlarmBinding.checkSat.isChecked(),
                 createAlarmBinding.checkSun.isChecked(),
                 tone,
-                isVibrate
+                isVibrate,
+                minigame
         );
         createAlarmViewModel.update(updatedAlarm);
         updatedAlarm.schedule(getContext());
@@ -213,6 +259,7 @@ public class CreateAlarm extends Fragment {
             if(alarm.isVibration())
                 createAlarmBinding.vibrationSwitch.setChecked(true);
         }
+        createAlarmBinding.minigameText.setText(alarm.getAlarmMinigame());
     }
 
     @Override

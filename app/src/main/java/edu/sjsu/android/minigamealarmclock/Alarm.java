@@ -30,8 +30,9 @@ public class Alarm implements Parcelable {
     private String alarmName;
     private String alarmSound;
     private boolean vibration;
+    private String alarmMinigame;
 
-    public Alarm(int alarmId, int hour, int minute, String alarmName, boolean started, boolean recurring, boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday, boolean saturday, boolean sunday, String alarmSound,boolean vibration) {
+    public Alarm(int alarmId, int hour, int minute, String alarmName, boolean started, boolean recurring, boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday, boolean saturday, boolean sunday, String alarmSound,boolean vibration, String alarmMinigame) {
         this.alarmId = alarmId;
         this.hour = hour;
         this.minute = minute;
@@ -47,6 +48,7 @@ public class Alarm implements Parcelable {
         this.alarmName = alarmName;
         this.vibration = vibration;
         this.alarmSound = alarmSound;
+        this.alarmMinigame = alarmMinigame;
     }
 
     protected Alarm(Parcel in) {
@@ -65,6 +67,7 @@ public class Alarm implements Parcelable {
         alarmName = in.readString();
         alarmSound = in.readString();
         vibration = in.readByte() != 0;
+        alarmMinigame = in.readString();
     }
 
     public static final Creator<Alarm> CREATOR = new Creator<Alarm>() {
@@ -167,6 +170,10 @@ public class Alarm implements Parcelable {
         return alarmName;
     }
 
+    public String getAlarmMinigame(){
+        return alarmMinigame;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -189,6 +196,7 @@ public class Alarm implements Parcelable {
         parcel.writeString(alarmName);
         parcel.writeString(alarmSound);
         parcel.writeByte((byte) (vibration ? 1 : 0));
+        parcel.writeString(alarmMinigame);
     }
 
     @SuppressLint("ScheduleExactAlarm")
