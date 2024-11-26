@@ -187,7 +187,7 @@ public class CreateAlarm extends Fragment {
         String alarmName = getString(R.string.alarm_name);
 //        int alarmId = new Random().nextInt(Integer.MAX_VALUE);
         if(!createAlarmBinding.createAlarmName.getText().toString().isEmpty()){
-            alarmName=createAlarmBinding.createAlarmName.getText().toString();
+            alarmName = createAlarmBinding.createAlarmName.getText().toString();
         }
         isRecurring = createAlarmBinding.checkMon.isChecked() ||
                 createAlarmBinding.checkTue.isChecked() ||
@@ -234,6 +234,11 @@ public class CreateAlarm extends Fragment {
         }
     }
 
+    /**
+     * This method is used to ensure that when updating an existing alarm,
+     * the create alarm fragment shows the saved information of the existing alarm.
+     * @param alarm The alarm the user is currently updating
+     */
     private void updateAlarmInfo(Alarm alarm){
         createAlarmBinding.createAlarmName.setText(alarm.getAlarmName());
         createAlarmBinding.timePicker.setHour(alarm.getHour());
