@@ -7,4 +7,5 @@
     <color name="editTextColor">#959595</color>
     <color name="red">#FF0000</color>
     <color name="green">#008000</color>
+    <color name="fab_backgroundtint">#d6d7d7</color>
 </resources>
