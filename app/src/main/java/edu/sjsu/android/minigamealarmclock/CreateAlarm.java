@@ -20,7 +20,6 @@ import android.widget.CompoundButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import java.util.Objects;
 import java.util.Random;
 
 import edu.sjsu.android.minigamealarmclock.databinding.FragmentCreateAlarmBinding;
