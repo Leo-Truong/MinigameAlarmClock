@@ -117,7 +117,10 @@ public class AlarmService extends Service {
 
         mediaPlayer.stop();
         vibrator.cancel();
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolume, AudioManager.FLAG_SHOW_UI);
+
+        // Only reset volume back to normal if it was changed originally
+        if (alarm.isMaxVolume())
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolume, AudioManager.FLAG_SHOW_UI);
     }
 
     @Nullable
