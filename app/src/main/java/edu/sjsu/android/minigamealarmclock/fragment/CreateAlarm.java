@@ -7,16 +7,15 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -47,83 +46,64 @@ public class CreateAlarm extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            alarm= (Alarm) getArguments().getParcelable(getString(R.string.arg_alarm_obj));
+            alarm= getArguments().getParcelable(getString(R.string.arg_alarm_obj));
         }
         createAlarmViewModel = new ViewModelProvider(this).get(CreateAlarmViewModel.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         createAlarmBinding = FragmentCreateAlarmBinding.inflate(inflater,container,false);
         View v = createAlarmBinding.getRoot();
+
         tone = RingtoneManager.getActualDefaultRingtoneUri(this.getContext(), RingtoneManager.TYPE_ALARM).toString();
         ringtone = RingtoneManager.getRingtone(getContext(), Uri.parse(tone));
         createAlarmBinding.alarmSoundText.setText(ringtone.getTitle(getContext()));
+
+        // Default minigame
         createAlarmBinding.minigameText.setText(R.string.bomb_defusal);
-        minigame = "Bomb Defusal"; // Default minigame
+        minigame = "Bomb Defusal";
 
         if(alarm!=null){
             updateAlarmInfo(alarm);
         }
 
         // onClick for Minigames
-        createAlarmBinding.cardMinigame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupMenu(view);
+        createAlarmBinding.cardMinigame.setOnClickListener(this::showPopupMenu);
+
+        // onClick for creating an alarm
+        createAlarmBinding.createAlarm.setOnClickListener(v1 -> {
+            // if alarm isn't null we can update the alarm, otherwise we schedule a new alarm
+            if(alarm!=null) {
+                updateAlarm();
             }
+            else{
+                scheduleAlarm();
+            }
+
+            Navigation.findNavController(v1).navigate(R.id.action_createAlarmFragment_to_alarmsListFragment);
         });
 
-        createAlarmBinding.createAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(alarm!=null) {
-                    updateAlarm();
-                }
-                else{
-                    scheduleAlarm();
-                }
-
-                Navigation.findNavController(v).navigate(R.id.action_createAlarmFragment_to_alarmsListFragment);
-            }
+        // onClick for selecting an alarm sound
+        createAlarmBinding.cardAlarmSound.setOnClickListener(view -> {
+            Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
+            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Alarm Sound");
+            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(tone));
+            startActivityForResult(intent, 5);
         });
 
-        createAlarmBinding.cardAlarmSound.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Alarm Sound");
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) Uri.parse(tone));
-                startActivityForResult(intent, 5);
-            }
-        });
-
-        createAlarmBinding.vibrationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    isVibrate=true;
-                }
-                else{
-                    isVibrate=false;
-                }
-            }
-        });
-
+        createAlarmBinding.vibrationSwitch.setOnCheckedChangeListener((compoundButton, b) -> isVibrate = b);
         createAlarmBinding.extraLoudSwitch.setOnCheckedChangeListener((compoundButton, b) -> isMaxVolume = b);
-
-//        createAlarmBinding.timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//            @Override
-//            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-//                createAlarmBinding.fragmentCreatealarmScheduleAlarmHeading.setText(DayUtil.getDay(TimePickerUtil.getTimePickerHour(timePicker),TimePickerUtil.getTimePickerMinute(timePicker)));
-//            }
-//        });
 
         return v;
     }
 
+    /**
+     * Method to show a popup menu to choose a game
+     * @param view current view
+     */
     private void showPopupMenu(View view) {
         // Create PopupMenu using the view where the menu will appear
         PopupMenu popupMenu = new PopupMenu(getActivity(), view);
@@ -132,24 +112,24 @@ public class CreateAlarm extends Fragment {
         requireActivity().getMenuInflater().inflate(R.menu.context_menu, popupMenu.getMenu());
 
         // Set listener for menu item selection
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.minigame1) {
-                    Toast.makeText(getActivity(), "Bomb Defusal selected", Toast.LENGTH_SHORT).show();
-                    createAlarmBinding.minigameText.setText(R.string.bomb_defusal);
-                    minigame = "Bomb Defusal";
-                    return true;
-                }
-                return false;
+        popupMenu.setOnMenuItemClickListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.minigame1) {
+                Toast.makeText(getActivity(), "Bomb Defusal selected", Toast.LENGTH_SHORT).show();
+                createAlarmBinding.minigameText.setText(R.string.bomb_defusal);
+                minigame = "Bomb Defusal";
+                return true;
             }
+            return false;
         });
 
         // Show the PopupMenu
         popupMenu.show();
     }
 
+    /**
+     * Method used to schedule an alarm.
+     */
     private void scheduleAlarm() {
         String alarmName = getString(R.string.alarm_name);
         int alarmId = new Random().nextInt(Integer.MAX_VALUE);
@@ -185,13 +165,15 @@ public class CreateAlarm extends Fragment {
 
         createAlarmViewModel.insert(alarm);
 
-        alarm.schedule(getContext());
+        alarm.schedule(requireContext());
         Log.d("CreateAlarm", "minigame: " + minigame);
     }
 
+    /**
+     * Method to update the alarm
+     */
     private void updateAlarm(){
         String alarmName = getString(R.string.alarm_name);
-//        int alarmId = new Random().nextInt(Integer.MAX_VALUE);
         if(!createAlarmBinding.createAlarmName.getText().toString().isEmpty()){
             alarmName = createAlarmBinding.createAlarmName.getText().toString();
         }
@@ -222,9 +204,10 @@ public class CreateAlarm extends Fragment {
                 isMaxVolume
         );
         createAlarmViewModel.update(updatedAlarm);
-        updatedAlarm.schedule(getContext());
+        updatedAlarm.schedule(requireContext());
     }
 
+    // Is called when user selects a ringtone to use for the alarm sound
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
         if (resultCode == Activity.RESULT_OK && requestCode == 5) {
