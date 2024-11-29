@@ -27,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView timerTextView;
     private TextView wiresToCutTextView;
     private CountDownTimer countDownTimer;
+    private CountDownTimer startGameTimer;
     private final long timerDuration = 30000; // 30 seconds
     private final ArrayList<String> wires = new ArrayList<>(Arrays.asList("G", "R", "O1", "Y1", "B", "P", "O2", "Y2"));
     private ArrayList<String> tempwires = new ArrayList<String>();
@@ -67,7 +68,7 @@ public class GameActivity extends AppCompatActivity {
                     b.setEnabled(false);
                     if (wiresToCut.isEmpty()) // Disable buttons on the event user completes game
                         disableAllButtons();
-                    Log.d("GameActivty", "Removed: " + wireColor);
+                    Log.d("GameActivity", "Removed: " + wireColor);
                     Log.d("GameActivity", "wiresToCut: " + wiresToCut.toString());
                 }else{
                     b.setBackgroundColor(Color.RED);
@@ -133,7 +134,7 @@ public class GameActivity extends AppCompatActivity {
         if (timerTextView.getVisibility() == View.VISIBLE)
             timerTextView.setVisibility(View.INVISIBLE);
 
-        new CountDownTimer(5000, 1000) { // Total time of 5 seconds, tick every 1 second
+        startGameTimer = new CountDownTimer(5000, 1000) { // Total time of 5 seconds, tick every 1 second
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -202,24 +203,22 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                onTimerFinished();
+                resetGame();
+                Log.d("GameActivity", "Timer finished!");
             }
         };
         countDownTimer.start();
     }
 
-    private void onTimerFinished() {
-        // Game over logic here
-        resetGame();
-        Log.d("GameActivity", "Timer finished!");
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Cancel the timer if the activity is destroyed
+        // Cancel the timers if the activity is destroyed
         if (countDownTimer != null) {
             countDownTimer.cancel();
+        }
+        if (startGameTimer != null) {
+            startGameTimer.cancel();
         }
     }
 

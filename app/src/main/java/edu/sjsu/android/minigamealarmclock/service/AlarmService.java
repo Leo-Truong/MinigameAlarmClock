@@ -72,7 +72,7 @@ public class AlarmService extends Service {
             }
         }
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Ring Ring .. Ring Ring")
+                .setContentTitle("Click to turn off: ")
                 .setContentText(alarmName)
                 .setSmallIcon(R.drawable.ic_alarm_white_24)
                 .setSound(null)
