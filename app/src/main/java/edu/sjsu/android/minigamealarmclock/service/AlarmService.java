@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -35,6 +36,8 @@ public class AlarmService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Initialize the necessary objects for the alarm
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setLooping(true);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -45,7 +48,9 @@ public class AlarmService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Bundle bundle = intent.getBundleExtra(getString(R.string.bundle_alarm_obj));
         if (bundle!=null)
-            alarm = (Alarm) bundle.getParcelable(getString(R.string.arg_alarm_obj));
+            alarm = bundle.getParcelable(getString(R.string.arg_alarm_obj));
+
+        // Initialize PendingIntent so that once alarm goes off the app will redirect to RingActivity
         Intent notificationIntent = new Intent(this, RingActivity.class);
         notificationIntent.putExtra(getString(R.string.bundle_alarm_obj),bundle);
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -56,6 +61,8 @@ public class AlarmService extends Service {
                 notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
+
+        // Sets up mediaPlayer for the current alarm
         String alarmName = getString(R.string.alarm_name);
         if(alarm!=null) {
             alarmName = alarm.getAlarmName();
@@ -63,7 +70,7 @@ public class AlarmService extends Service {
                 mediaPlayer.setDataSource(this.getBaseContext(), Uri.parse(alarm.getAlarmSound()));
                 mediaPlayer.prepareAsync();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                Log.e("AlarmService", "An error has occurred while processing", ex);
             }
         }
         else{
@@ -72,9 +79,11 @@ public class AlarmService extends Service {
                 mediaPlayer.setDataSource(this.getBaseContext(),ringtone);
                 mediaPlayer.prepareAsync();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                Log.e("AlarmService", "An error has occurred while processing", ex);
             }
         }
+
+        // Initialize notification used to turn off alarm
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Click to turn off: ")
                 .setContentText(alarmName)
@@ -85,23 +94,23 @@ public class AlarmService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setFullScreenIntent(pendingIntent,true)
                 .build();
-        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                if (alarm.isMaxVolume()){
-                    // Saves original volume to reset after minigame is completed
-                    originalVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-                    // Gets the max volume of the device
-                    maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                    // Sets the device volume to max
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_SHOW_UI);
-                    // Sets mediaPlayer volume to max
-                    mediaPlayer.setVolume(1.0f, 1.0f);
-                }
-                mediaPlayer.start();
+
+        // Start alarm sound through mediaPlayer
+        mediaPlayer.setOnPreparedListener(mediaPlayer -> {
+            if (alarm.isMaxVolume()){
+                // Saves original volume to reset after minigame is completed
+                originalVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                // Gets the max volume of the device
+                maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                // Sets the device volume to max
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_SHOW_UI);
+                // Sets mediaPlayer volume to max
+                mediaPlayer.setVolume(1.0f, 1.0f);
             }
+            mediaPlayer.start();
         });
 
+        // Alarm vibrates if isVibration set to true
         if(alarm.isVibration()) {
             long[] pattern = {0, 100, 1000};
             vibrator.vibrate(pattern, 0);
