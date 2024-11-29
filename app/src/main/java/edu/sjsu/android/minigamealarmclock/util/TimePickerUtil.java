@@ -1,6 +1,5 @@
 package edu.sjsu.android.minigamealarmclock.util;
 
-import android.os.Build;
 import android.widget.TimePicker;
 
 public final class TimePickerUtil {
