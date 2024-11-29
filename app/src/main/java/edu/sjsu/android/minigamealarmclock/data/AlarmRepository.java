@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import edu.sjsu.android.minigamealarmclock.Alarm;
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
 
 public class AlarmRepository {
     private AlarmDao alarmDao;

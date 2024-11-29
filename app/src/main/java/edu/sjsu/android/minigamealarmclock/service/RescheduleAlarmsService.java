@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.service;
 
 import android.content.Intent;
 import android.os.IBinder;
@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 
 import java.util.List;
 
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
 import edu.sjsu.android.minigamealarmclock.data.AlarmRepository;
 
 public class RescheduleAlarmsService extends LifecycleService {

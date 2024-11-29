@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/alarmsListFragment"
-        android:name="edu.sjsu.android.minigamealarmclock.AlarmFragment"
+        android:name="edu.sjsu.android.minigamealarmclock.fragment.AlarmFragment"
         android:label="My Alarms"
         tools:layout="@layout/fragment_alarm_list">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/createAlarm"
-        android:name="edu.sjsu.android.minigamealarmclock.CreateAlarm"
+        android:name="edu.sjsu.android.minigamealarmclock.fragment.CreateAlarm"
         android:label="Schedule Alarm">
         <action
             android:id="@+id/action_createAlarmFragment_to_alarmsListFragment"

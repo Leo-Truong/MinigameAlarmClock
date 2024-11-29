@@ -9,7 +9,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import edu.sjsu.android.minigamealarmclock.Alarm;
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
 
 @Dao
 public interface AlarmDao {

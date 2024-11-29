@@ -1,10 +1,11 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.viewmodel;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
 import edu.sjsu.android.minigamealarmclock.data.AlarmRepository;
 
 public class CreateAlarmViewModel extends AndroidViewModel {

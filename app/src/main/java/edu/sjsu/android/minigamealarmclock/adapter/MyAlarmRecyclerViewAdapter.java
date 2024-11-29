@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
 import edu.sjsu.android.minigamealarmclock.databinding.FragmentAlarmBinding;
+import edu.sjsu.android.minigamealarmclock.util.OnToggleAlarmListener;
 
 import java.util.ArrayList;
 import java.util.List;

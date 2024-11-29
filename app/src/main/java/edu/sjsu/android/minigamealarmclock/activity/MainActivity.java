@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.activity;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -6,6 +6,8 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import edu.sjsu.android.minigamealarmclock.R;
 
 public class MainActivity extends AppCompatActivity {
 

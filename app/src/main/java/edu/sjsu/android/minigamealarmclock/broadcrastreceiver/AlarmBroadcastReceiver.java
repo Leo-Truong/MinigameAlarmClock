@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.broadcrastreceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.Calendar;
+
+import edu.sjsu.android.minigamealarmclock.R;
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
+import edu.sjsu.android.minigamealarmclock.service.AlarmService;
+import edu.sjsu.android.minigamealarmclock.service.RescheduleAlarmsService;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
     Alarm alarm;

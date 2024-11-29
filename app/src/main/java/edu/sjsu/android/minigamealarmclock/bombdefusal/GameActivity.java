@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
-import edu.sjsu.android.minigamealarmclock.AlarmService;
+import edu.sjsu.android.minigamealarmclock.service.AlarmService;
 import edu.sjsu.android.minigamealarmclock.R;
 import edu.sjsu.android.minigamealarmclock.databinding.ActivityGameBinding;
 

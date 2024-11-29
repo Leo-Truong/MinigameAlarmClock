@@ -1,6 +1,8 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.util;
 
 import android.view.View;
+
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
 
 public interface OnToggleAlarmListener {
     void onToggle(Alarm alarm);

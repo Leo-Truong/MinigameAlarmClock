@@ -1,6 +1,6 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.service;
 
-import static edu.sjsu.android.minigamealarmclock.App.CHANNEL_ID;
+import static edu.sjsu.android.minigamealarmclock.application.App.CHANNEL_ID;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -18,6 +18,10 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import java.io.IOException;
+
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
+import edu.sjsu.android.minigamealarmclock.R;
+import edu.sjsu.android.minigamealarmclock.activity.RingActivity;
 
 public class AlarmService extends Service {
     private MediaPlayer mediaPlayer;

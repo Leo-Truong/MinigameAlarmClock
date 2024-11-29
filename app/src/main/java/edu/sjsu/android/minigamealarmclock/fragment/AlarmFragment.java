@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.fragment;
 
 import android.os.Bundle;
 
@@ -17,12 +17,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
+import edu.sjsu.android.minigamealarmclock.adapter.MyAlarmRecyclerViewAdapter;
+import edu.sjsu.android.minigamealarmclock.R;
 import edu.sjsu.android.minigamealarmclock.databinding.FragmentAlarmListBinding;
+import edu.sjsu.android.minigamealarmclock.util.OnToggleAlarmListener;
+import edu.sjsu.android.minigamealarmclock.viewmodel.AlarmsListViewModel;
 
 /**
  * A fragment representing a list of Items.
  */
-public class AlarmFragment extends Fragment implements OnToggleAlarmListener{
+public class AlarmFragment extends Fragment implements OnToggleAlarmListener {
     private MyAlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
     private AlarmsListViewModel alarmsListViewModel;
     private RecyclerView alarmsRecyclerView;

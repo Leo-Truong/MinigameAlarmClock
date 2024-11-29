@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.activity;
 
 import android.content.Intent;
 import android.os.Build;
@@ -14,8 +14,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
+import edu.sjsu.android.minigamealarmclock.R;
 import edu.sjsu.android.minigamealarmclock.bombdefusal.GameActivity;
 import edu.sjsu.android.minigamealarmclock.databinding.ActivityRingBinding;
+import edu.sjsu.android.minigamealarmclock.viewmodel.AlarmsListViewModel;
 
 public class RingActivity extends AppCompatActivity {
     Alarm alarm;
@@ -62,6 +65,7 @@ public class RingActivity extends AppCompatActivity {
         if (bundle != null)
             alarm = bundle.getParcelable(getString(R.string.arg_alarm_obj));
 
+        // When user clicks start minigame button the minigame corresponding to the alarm is started
         ringActivityViewBinding.startMinigame.setOnClickListener(v -> startGame());
     }
 
@@ -79,6 +83,9 @@ public class RingActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to cancel the current alarm and start the minigame corresponding to the alarm
+     */
     private void startGame(){
         if(alarm!=null) {
             alarm.setStarted(false);

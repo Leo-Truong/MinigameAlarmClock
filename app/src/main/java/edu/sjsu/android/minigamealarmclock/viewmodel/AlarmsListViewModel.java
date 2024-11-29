@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.viewmodel;
 
 import android.app.Application;
 
@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
 import edu.sjsu.android.minigamealarmclock.data.AlarmRepository;
 
 public class AlarmsListViewModel extends AndroidViewModel {

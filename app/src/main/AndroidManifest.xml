@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
     <application
-        android:name=".App"
+        android:name=".application.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,10 +25,10 @@
             android:name=".bombdefusal.GameActivity"
             android:exported="true" />
         <activity
-            android:name=".RingActivity"
+            android:name=".activity.RingActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,15 +38,15 @@
         </activity>
 
         <receiver
-            android:name=".AlarmBroadcastReceiver"
+            android:name=".broadcrastreceiver.AlarmBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".AlarmService" />
-        <service android:name=".RescheduleAlarmsService" />
+        <service android:name=".service.AlarmService" />
+        <service android:name=".service.RescheduleAlarmsService" />
     </application>
 
 </manifest>

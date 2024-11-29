@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,8 +22,11 @@ import android.widget.Toast;
 
 import java.util.Random;
 
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
+import edu.sjsu.android.minigamealarmclock.R;
 import edu.sjsu.android.minigamealarmclock.databinding.FragmentCreateAlarmBinding;
 import edu.sjsu.android.minigamealarmclock.util.TimePickerUtil;
+import edu.sjsu.android.minigamealarmclock.viewmodel.CreateAlarmViewModel;
 
 public class CreateAlarm extends Fragment {
     FragmentCreateAlarmBinding createAlarmBinding;

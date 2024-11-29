@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CreateAlarm">
+    tools:context=".fragment.CreateAlarm">
 
     <EditText
         android:id="@+id/create_alarm_name"

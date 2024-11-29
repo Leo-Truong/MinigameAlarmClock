@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.model;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -17,6 +17,8 @@ import androidx.room.PrimaryKey;
 
 import java.util.Calendar;
 
+import edu.sjsu.android.minigamealarmclock.broadcrastreceiver.AlarmBroadcastReceiver;
+import edu.sjsu.android.minigamealarmclock.R;
 import edu.sjsu.android.minigamealarmclock.util.DayUtil;
 
 @Entity(tableName = "alarm_table")

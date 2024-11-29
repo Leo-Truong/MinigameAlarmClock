@@ -1,4 +1,4 @@
-package edu.sjsu.android.minigamealarmclock;
+package edu.sjsu.android.minigamealarmclock.adapter;
 
 import android.view.View;
 import android.widget.CompoundButton;
@@ -10,8 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import edu.sjsu.android.minigamealarmclock.model.Alarm;
 import edu.sjsu.android.minigamealarmclock.databinding.FragmentAlarmBinding;
 import edu.sjsu.android.minigamealarmclock.util.DayUtil;
+import edu.sjsu.android.minigamealarmclock.util.OnToggleAlarmListener;
 
 public class AlarmViewHolder extends RecyclerView.ViewHolder{
     private TextView alarmTime;
