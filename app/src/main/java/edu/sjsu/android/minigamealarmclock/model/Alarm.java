@@ -35,6 +35,7 @@ public class Alarm implements Parcelable {
     private String alarmMinigame;
     private boolean maxVolume;
 
+    // Constructor for Alarm
     public Alarm(int alarmId, int hour, int minute, String alarmName, boolean started, boolean recurring, boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday, boolean saturday, boolean sunday, String alarmSound,boolean vibration, String alarmMinigame, boolean maxVolume) {
         this.alarmId = alarmId;
         this.hour = hour;
@@ -87,24 +88,13 @@ public class Alarm implements Parcelable {
         }
     };
 
+    // A bunch of getters for alarm
     public int getHour() {
         return hour;
     }
 
     public int getMinute() {
         return minute;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
-
-    public void setAlarmName(String alarmName) {
-        this.alarmName = alarmName;
     }
 
     public boolean isStarted() {
@@ -117,10 +107,6 @@ public class Alarm implements Parcelable {
 
     public int getAlarmId() {
         return alarmId;
-    }
-
-    public void setAlarmId(int alarmId) {
-        this.alarmId = alarmId;
     }
 
     public boolean isRecurring() {
@@ -159,16 +145,8 @@ public class Alarm implements Parcelable {
         return alarmSound;
     }
 
-    public void setAlarmSound(String alarmSound){
-        this.alarmSound = alarmSound;
-    }
-
     public boolean isVibration(){
         return vibration;
-    }
-
-    public void setVibration(boolean vibration){
-        this.vibration = vibration;
     }
 
     public String getAlarmName(){
@@ -209,11 +187,15 @@ public class Alarm implements Parcelable {
         parcel.writeByte((byte) (maxVolume ? 1 : 0));
     }
 
+    /**
+     * Method to schedule alarm through AlarmManager
+     * @param context current context
+     */
     @SuppressLint("ScheduleExactAlarm")
     public void schedule(Context context){
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
-        Bundle bundle=new Bundle();
+        Bundle bundle = new Bundle();
         bundle.putParcelable(context.getString(R.string.arg_alarm_obj),this);
         intent.putExtra(context.getString(R.string.bundle_alarm_obj),bundle);
 
@@ -231,6 +213,7 @@ public class Alarm implements Parcelable {
             calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
         }
 
+        // Toast used to display message when scheduling an alarm
         if (!recurring) {
             String toastText = null;
             try {
@@ -261,6 +244,10 @@ public class Alarm implements Parcelable {
         this.started = true;
     }
 
+    /**
+     * Method to cancel the alarm through AlarmManager
+     * @param context current alarm
+     */
     public void cancelAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
@@ -273,6 +260,10 @@ public class Alarm implements Parcelable {
         Log.i("cancel", toastText);
     }
 
+    /**
+     * Method to get the recurring days of an alarm in text format
+     * @return a string of days the alarm os occurring
+     */
     public String getRecurringDaysText() {
         if (!recurring) {
             return null;
