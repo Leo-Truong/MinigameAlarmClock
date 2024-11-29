@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 import edu.sjsu.android.minigamealarmclock.model.Alarm;
 
-@Database(entities = {Alarm.class}, version = 2, exportSchema = false)
+@Database(entities = {Alarm.class}, version = 3, exportSchema = false)
 public abstract class AlarmDatabase extends RoomDatabase {
     public abstract AlarmDao alarmDao();
 

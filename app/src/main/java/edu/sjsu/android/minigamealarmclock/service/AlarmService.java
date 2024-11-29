@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -25,7 +26,9 @@ import edu.sjsu.android.minigamealarmclock.activity.RingActivity;
 
 public class AlarmService extends Service {
     private MediaPlayer mediaPlayer;
+    private AudioManager audioManager;
     private Vibrator vibrator;
+    int maxVolume, originalVolume;
     Alarm alarm;
     Uri ringtone;
 
@@ -36,6 +39,7 @@ public class AlarmService extends Service {
         mediaPlayer.setLooping(true);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         ringtone = RingtoneManager.getActualDefaultRingtoneUri(this.getBaseContext(), RingtoneManager.TYPE_ALARM);
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -84,6 +88,16 @@ public class AlarmService extends Service {
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
+                if (alarm.isMaxVolume()){
+                    // Saves original volume to reset after minigame is completed
+                    originalVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                    // Gets the max volume of the device
+                    maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                    // Sets the device volume to max
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, AudioManager.FLAG_SHOW_UI);
+                    // Sets mediaPlayer volume to max
+                    mediaPlayer.setVolume(1.0f, 1.0f);
+                }
                 mediaPlayer.start();
             }
         });
@@ -103,6 +117,7 @@ public class AlarmService extends Service {
 
         mediaPlayer.stop();
         vibrator.cancel();
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, originalVolume, AudioManager.FLAG_SHOW_UI);
     }
 
     @Nullable

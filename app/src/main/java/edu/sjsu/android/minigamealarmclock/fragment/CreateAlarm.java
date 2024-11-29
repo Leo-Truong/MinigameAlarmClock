@@ -32,6 +32,7 @@ public class CreateAlarm extends Fragment {
     FragmentCreateAlarmBinding createAlarmBinding;
     private CreateAlarmViewModel createAlarmViewModel;
     boolean isVibrate = false;
+    boolean isMaxVolume = false;
     boolean isRecurring;
     String tone;
     Alarm alarm;
@@ -111,6 +112,8 @@ public class CreateAlarm extends Fragment {
             }
         });
 
+        createAlarmBinding.extraLoudSwitch.setOnCheckedChangeListener((compoundButton, b) -> isMaxVolume = b);
+
 //        createAlarmBinding.timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
 //            @Override
 //            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
@@ -176,7 +179,8 @@ public class CreateAlarm extends Fragment {
                 createAlarmBinding.checkSun.isChecked(),
                 tone,
                 isVibrate,
-                minigame
+                minigame,
+                isMaxVolume
         );
 
         createAlarmViewModel.insert(alarm);
@@ -214,7 +218,8 @@ public class CreateAlarm extends Fragment {
                 createAlarmBinding.checkSun.isChecked(),
                 tone,
                 isVibrate,
-                minigame
+                minigame,
+                isMaxVolume
         );
         createAlarmViewModel.update(updatedAlarm);
         updatedAlarm.schedule(getContext());
@@ -265,6 +270,8 @@ public class CreateAlarm extends Fragment {
             createAlarmBinding.alarmSoundText.setText(ringtone.getTitle(getContext()));
             if(alarm.isVibration())
                 createAlarmBinding.vibrationSwitch.setChecked(true);
+            if(alarm.isMaxVolume())
+                createAlarmBinding.extraLoudSwitch.setChecked(true);
         }
         createAlarmBinding.minigameText.setText(alarm.getAlarmMinigame());
     }
