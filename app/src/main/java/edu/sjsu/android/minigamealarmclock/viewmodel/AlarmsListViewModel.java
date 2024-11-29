@@ -22,14 +22,26 @@ public class AlarmsListViewModel extends AndroidViewModel {
         alarmsLiveData = alarmRepository.getAlarmsLiveData();
     }
 
+    /**
+     * Method to update the alarm in the database
+     * @param alarm alarm to be updated
+     */
     public void update(Alarm alarm) {
         alarmRepository.update(alarm);
     }
 
+    /**
+     * Method that returns the live data of the alarms
+     * @return LiveData of alarms
+     */
     public LiveData<List<Alarm>> getAlarmsLiveData() {
         return alarmsLiveData;
     }
 
+    /**
+     * Method to delete an alarm with the corresponding alarmId
+     * @param alarmId Primary key that represents the alarm
+     */
     public void delete(int alarmId){
         alarmRepository.delete(alarmId);
     }

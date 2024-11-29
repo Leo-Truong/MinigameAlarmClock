@@ -3,6 +3,12 @@ package edu.sjsu.android.minigamealarmclock.util;
 import java.util.Calendar;
 
 public final class DayUtil {
+    /**
+     * Method to convert integer value into a representing day of the week
+     * @param day integer value
+     * @return the representing day
+     * @throws Exception when the integer value is not a valid representation of a day
+     */
     public static String toDay(int day) throws Exception {
         switch (day) {
             case Calendar.SUNDAY:
@@ -23,6 +29,12 @@ public final class DayUtil {
         throw new Exception("Could not locate day");
     }
 
+    /**
+     * Method to determine if the specified time is on today or tomorrow
+     * @param hour the given hour
+     * @param minute the given minute
+     * @return Tomorrow if the given time is on today otherwise Today
+     */
     public static String getDay(int hour,int minute){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
